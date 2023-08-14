@@ -16,7 +16,8 @@ const main = document.querySelector("#main");
 const history = document.querySelector("#history");
 
 const countSpan = document.querySelector("#count-span");
-const historySpan = document.querySelector("#history-span");
+// const historySpan = document.querySelector("#history-span");
+const historySpans = document.querySelectorAll(".history-span");
 const template = document.querySelector("#historyRow");
 
 historyBtn.addEventListener('click', (evt) => {
@@ -54,7 +55,11 @@ saveBtn.addEventListener('click', (evt) => {
     hasStarted = false;
     count = 0;
     countSpan.textContent = count;
-    historySpan.textContent = `(${countArr.length})`;
+    // historySpan.textContent = `(${countArr.length})`;
+
+    historySpans.forEach(historySpan => {
+        historySpan.textContent = `(${countArr.length})`;
+    })
 
     prepareList();
 });
@@ -62,12 +67,15 @@ saveBtn.addEventListener('click', (evt) => {
 clearBtn.addEventListener('click', () => {
     const historyContent = document.querySelector("#history-content");
 
-    console.log('clear')
     count = 0;
     countSpan.textContent = count;
 
     countArr = [];
-    historySpan.textContent = `(0)`;
+    // historySpan.textContent = `(0)`;
+
+    historySpans.forEach(historySpan => {
+        historySpan.textContent = `(0)`;
+    })
 
     while(historyContent.firstChild) {
         historyContent.removeChild(historyContent.firstChild)
@@ -87,7 +95,6 @@ const prepareList = () => {
     while(historyContent.firstChild) {
         historyContent.removeChild(historyContent.firstChild)
     }
-    console.log(historyContent);
 
     historyList = document.createElement('ol');
     historyList.classList.add('.history-list');
